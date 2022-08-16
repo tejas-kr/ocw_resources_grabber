@@ -1,28 +1,26 @@
-import requests 
+import requests
 import re
 
-from datetime import datetime
-import os
 
-def downloader(all_a, main_url, file_extention):
+def downloader(all_a, main_url, file_extention, folder_name):
     print("Downloading started")
-
-    folder_name = file_extention+"_"+datetime.now().strftime("%Y%m%d%H%M%S%f")
-    os.mkdir(folder_name)
 
     for a in all_a:
         href = a.get('href')
-        pattern = ".*."+file_extention+"$"
+        pattern = ".*." + file_extention + "$"
+        # get all pdf files' links
         filtered_href = re.match(pattern, href)
-    #     filtered_href = filter(r.match, a)
         if filtered_href:
             filtered_href_str = filtered_href.string
+            # get the whole file name
             file_name = filtered_href_str.split('/')[-1]
-            response = requests.get(main_url+filtered_href_str)
+            
+            print(main_url + filtered_href_str)
+            response = requests.get(main_url + filtered_href_str)
             print("Downloading...")
-            pdf = open(folder_name+"/"+file_name, 'wb')
-            pdf.write(response.content)
-            pdf.close()
-            print("Downloading one file complete")
 
-    print("Full Downloading completed")
+            # the file name was only remained in the last part of the href (spit with _)
+            # you can use file_name.split('_')[-4:-1] to get like 'MITRES_LL_005F12_Lec4.pdf'
+            with open(folder_name + "/" + file_name.split('_')[-1],'wb') as pdf:
+                pdf.write(response.content)
+            print("Downloading one file complete")
