@@ -21,6 +21,10 @@ def downloader(all_a, main_url, file_extention, folder_name):
 
             # the file name was only remained in the last part of the href (spit with _)
             # you can use file_name.split('_')[-4:-1] to get like 'MITRES_LL_005F12_Lec4.pdf'
-            with open(folder_name + "/" + file_name.split('_')[-1],'wb') as pdf:
+            if file_name.split('_')[-1] == "sol.{}".format(file_extention):
+                file_name = file_name.split('_')[-2]+'_'+file_name.split('_')[-1]
+            else:
+                file_name = file_name.split('_')[-1]
+            with open(folder_name + "/" + file_name,'wb') as pdf:
                 pdf.write(response.content)
             print("Downloading one file complete")
