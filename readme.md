@@ -25,7 +25,7 @@ You can edit the **file name** and **folder name** in the `downloader.py` and `m
 
 ![image-20220817000621964](https://cdn.jsdelivr.net/gh/frinkleko/PicgoPabloBED@master/images_for_wechat/image-20220817000621964.png)
 
-> This will create a folder on the `root` directory with current timestamp and you can move to the desired location and rename it as you like. 
+> This will create a folder on the `root` directory with FileExtension_\<course code>\_\<course name>  and you can move to the desired location and rename it as you like. 
 
 ## ToDo:
 
